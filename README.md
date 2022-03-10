@@ -197,3 +197,4 @@ geocode('Richmond, British Columbia', (error, data) => {
   console.log('data', data);
 });
 ```
+
