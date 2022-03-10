@@ -8,7 +8,7 @@ const forecast = (latitude, longitude, callback) => {
   request({ url: url, json: true }, (error, response) => {
     if (error) {
       callback('Unable to connect to weatherstack API.', undefined);
-    } else if (response.body.current.length === 0) {
+    } else if (response.body.error) {
       callback(
         'Unable to find weather with the specified latitude and longitude. Try again.',
         undefined
@@ -24,9 +24,7 @@ const forecast = (latitude, longitude, callback) => {
 
       callback(
         undefined,
-        `
-      The temperature in ${data.locName} is ${data.temp} degrees C, but feels like ${data.feelsLike} degrees. It appears to be ${data.weatherDescription} and has a humidity of ${data.humidity} %.
-      `
+        `The temperature in ${data.locName} is ${data.temp} degrees C, but feels like ${data.feelsLike} degrees. It appears to be ${data.weatherDescription} and has a humidity of ${data.humidity} %.`
       );
     }
   });
