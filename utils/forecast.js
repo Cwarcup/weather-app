@@ -5,21 +5,21 @@ const forecast = (latitude, longitude, callback) => {
 
   const url = `http://api.weatherstack.com/current?access_key=${access_key}&query=${latitude},${longitude}&units=m`;
 
-  request({ url: url, json: true }, (error, response) => {
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback('Unable to connect to weatherstack API.', undefined);
-    } else if (response.body.error) {
+    } else if (body.error) {
       callback(
         'Unable to find weather with the specified latitude and longitude. Try again.',
         undefined
       );
     } else {
       const data = {
-        locName: response.body.location.name,
-        weatherDescription: response.body.current.weather_descriptions,
-        feelsLike: response.body.current.feelslike,
-        temp: response.body.current.temperature,
-        humidity: response.body.current.humidity,
+        locName: body.location.name,
+        weatherDescription: body.current.weather_descriptions,
+        feelsLike: body.current.feelslike,
+        temp: body.current.temperature,
+        humidity: body.current.humidity,
       };
 
       callback(
