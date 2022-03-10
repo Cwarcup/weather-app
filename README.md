@@ -163,4 +163,23 @@ add(1, 4, (sum) => {
 
 encodeURIComponent()
 - used to replace each instance of a certain character.
-- Sometimes a user may create a search with
+- Sometimes a user may create a search with a special character. We want to make sure these characters can be encoded properly. 
+
+`const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent(address) + ".json?access_token=<ACCESS_TOKEN>&limit=1";`
+
+When making our request, we can use the `callback` if we get an error. We know that our callback will either receive `error` or `data`.
+```js
+const geocode = (address, callback) => {
+  const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent(address) + ".json?access_token=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&limit=1";
+
+  request( { url: url, json: true }, (error, response) => {
+    if(error) {
+      callback('Unable to connect to location services!', undefined)
+    }
+  })
+}
+
+geocode('Vancouver', (error, data) => {
+
+}
+```
