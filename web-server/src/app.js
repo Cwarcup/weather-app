@@ -18,6 +18,7 @@ hbs.registerPartials(partialsPath, function (err) {});
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
+// routes
 app.get('', (req, res) => {
   res.render('index', {
     title: 'Weather',
@@ -41,15 +42,32 @@ app.get('/help', (req, res) => {
   });
 });
 
-// app.get('/weather', (req, res) => {
-//   res.send({
-//     forecast: 'sunny as fuck',
-//     location: {
-//       lat: 123,
-//       long: 234,
-//     },
-//   });
-// });
+app.get('/weather', (req, res) => {
+  res.send({
+    forecast: 'sunny as fuck',
+    location: {
+      lat: 123,
+      long: 234,
+    },
+  });
+});
+
+// will match any page that has NOT been matched with /help
+app.get('/help/*', (req, res) => {
+  res.render('404', {
+    title: 'Oops Help!',
+    errorMessage: 'Help article not found.',
+    name: 'Curtis Warcup',
+  });
+});
+
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: 'Oops!',
+    errorMessage: 'Page not found.',
+    name: 'Curtis Warcup',
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -648,4 +648,108 @@ In the desired `views` file, add the partial like so:
   <h1>Static header.hbs text</h1>
   ```
 
+  # 404 Pages
+
+  Use when user goes to a URL that we have not specified like 'http://localhost:3000/sdfsdf'. We get a generic response from Express, 'Cannot GET /sdfsdf'.
+
+  How to setup:
+  - Customize express app
+    - create route at the bottom our app.js file
+    - use '*' as the route `app.get('*', (req, res) => {});`.
   
+```js
+// will match any page that has NOT been matched with /help
+app.get('/help/*', (req, res) => {
+  res.render('404', {
+    title: 'Oops Help!',
+    errorMessage: 'Help article not found.',
+    name: 'Curtis Warcup',
+  });
+});
+
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: 'Oops!',
+    errorMessage: 'Page not found.',
+    name: 'Curtis Warcup',
+  });
+});
+
+// new 404.hbs file
+<!DOCTYPE html>
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{>header}}
+    <p>{{errorMessage}}</p>
+    {{>footer}}
+  </body>
+</html>
+```
+
+# Adding CSS
+
+**Body:**
+`margin: 0 auto;` Evenly distribute space on the left and right. 0 is the margin for top and bottom. Auto will evenly distribute left and right. 
+
+`padding: 0 16px;` Putting 16px between our body content and our user window. Prevents things from getting jammed against the edge.
+
+**Footer:**
+Remember, padding will put space inside the box and margin will put space between the box and other items.
+
+```css
+footer {
+  color: #888888;
+  border-top: 1px solid #eeeeee;
+  margin-top: 16px;
+  padding: 16px 0;
+}
+
+// only targeting links in the header
+header a {
+  //...
+}
+```
+
+# Sticky Footer
+Put your main content in a separate div. Goal is to have the `<footer>` at the bottom of the page. 
+```html
+<!DOCTYPE html>
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script type="text/javascript" src="/js/app.js"></script>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <div class="main-content">
+      {{>header}}
+      <p>Use this site to get your weather!</p>
+    </div>
+
+
+    {{>footer}}
+  </body>
+</html>
+```
+
+In your CSS, set the `body` to `display: flex;` and flex-direction to `column`.
+
+Now we need our **body** to take up the entire height of our page. Done by:
+```css
+body {
+  color: #333333;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 650px;
+  margin: 0 auto; 
+  padding: 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+```
+**vh** is the viewport height, essentially what the browser height is. 
+
+100 = 100%.
