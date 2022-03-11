@@ -553,3 +553,37 @@ app.use(express.static(publicDirectoryPath));
 
 Now if we create more files in the public folder, we can visit them in the browser as so "http://localhost:3000/about.html".
 
+# Dynamic Webpages with Template Engine 
+
+Using handlebars module
+
+`npm install hbs`
+
+Using hbs as the default view engine requires just one line of code in your app setup. This will render .hbs files when res.render is called.
+
+`app.set('view engine', 'hbs');`
+
+```
+app.set('view engine', 'hbs');
+
+app.use(express.static(publicDirectoryPath));
+
+app.get('', (req, res) => {
+  res.render('index', {
+    title: 'Weather',
+    name: 'Curtis',
+  });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', {
+    title: 'About',
+  });
+});
+
+app.get('/help', (req, res) => {
+  res.render('help', {
+    title: 'Help',
+  });
+});
+```
