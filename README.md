@@ -753,3 +753,35 @@ body {
 **vh** is the viewport height, essentially what the browser height is. 
 
 100 = 100%.
+
+# Query String
+
+Used to search some json. 
+- They get added on the end of a URL. 
+- start with a `?`.
+`http://localhost:3000/products?search=games`
+- can prodived additional query searches by separating the terms with a `&`.
+
+`localhost:3000/products?search=games&ratings=5`
+> Here we are searching for games with ratings of 5.
+
+How does the server get this information?
+Using **the request parameters**
+
+if we search in our browser: "http://localhost:3000/products?search=games&ratings=5"
+
+```js
+// learning
+app.get('/products', (req, res) => {
+  console.log(req.query);
+  res.send({
+    products: [],
+  });
+});
+
+//in terminal
+Example app listening on port 3000
+{ search: 'games' }
+{ search: 'games', ratings: '5' }
+```
+
