@@ -513,7 +513,7 @@ app.get('/weather', (req, res) => {
 
 Node.js [path.join](https://nodejs.org/api/path.html#pathjoinpaths).
 
-```
+```js
 (path.join(__dirname, '../public')
 ```
 > Use `..` to move up the tree.
@@ -521,11 +521,35 @@ Node.js [path.join](https://nodejs.org/api/path.html#pathjoinpaths).
 To serve static files such as images, CSS files, and JavaScript files, use the `express.static` built-in middleware function in Express.
 
 The function signature is:
-```
+```js
 express.static(root, [options])
 ```
 The **root argument** specifies the **root directory** from which to serve static assets. In our case, `__dirname`.
 
-For more information on the options argument, see [express.static.](https://expressjs.com/en/4x/api.html#express.static)
+For more information on the options argument, see [express.static.](https://expressjs.com/en/4x/api.html#express.static).
+
+`express.static()` takes the path to the folder we want to serve up. In our case, we want to serve the content in the `public` directory, to pass on our `index.html`.
+
+Remember, this is done by `path.join(__dirname, '../public'`.
+
+All together:
+```js
+app.use(express.static(path.join(__dirname, '../public')));
+```
 
 So if we have an HTML file in the `public` directory, we can serve this page
+
+Serve up a directory:
+```js
+app.use(express.static(path.join(__dirname, '../public')));
+```
+
+Can also create a variable to store the path to the public directory.
+```js
+const publicDirectoryPath = path.join(__dirname, '../public');
+
+app.use(express.static(publicDirectoryPath));
+```
+
+Now if we create more files in the public folder, we can visit them in the browser as so "http://localhost:3000/about.html".
+
