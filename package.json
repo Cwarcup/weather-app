@@ -13,5 +13,8 @@
     "express": "^4.17.3",
     "hbs": "^4.2.0",
     "postman-request": "^2.88.1-postman.31"
+  },
+  "devDependencies": {
+    "@types/hbs": "^4.0.1"
   }
 }

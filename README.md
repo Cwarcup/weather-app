@@ -563,9 +563,21 @@ Using hbs as the default view engine requires just one line of code in your app 
 
 `app.set('view engine', 'hbs');`
 
-```
-app.set('view engine', 'hbs');
+```js
+const path = require('path');
+const express = require('express');
+const app = express();
+const port = 3000;
 
+// Define paths for Express config
+const publicDirectoryPath = path.join(__dirname, '../public');
+const viewsPath = path.join(__dirname, '../templates');
+
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs');
+app.set('views', viewsPath);
+
+// Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
@@ -586,4 +598,54 @@ app.get('/help', (req, res) => {
     title: 'Help',
   });
 });
+
+// app.get('/weather', (req, res) => {
+//   res.send({
+//     forecast: 'sunny as fuck',
+//     location: {
+//       lat: 123,
+//       long: 234,
+//     },
+//   });
+// });
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
 ```
+
+# Advanced Templating with Partials
+Partials can be used to add repetitive HTML elements, such as headers, footers and sidebars. 
+
+hbs exposes the registerHelper and registerPartial method from handlebars.
+
+```js
+var hbs = require('hbs');
+
+//
+hbs.registerPartial('partial_name', 'partial value');
+
+//create path to our partials
+const partialsPath = path.join(__dirname, '../templates/partials');
+
+// update our path to our views
+const viewsPath = path.join(__dirname, '../templates/views');
+```
+
+So how do we render a partial?
+
+In the desired `views` file, add the partial like so:
+```html
+//views file "help.hbs"
+  <body>
+    {{>header}} // name of partial you want to use
+
+    <h1>{{title}}</h1>
+    <p>This is the help page.</p>
+  </body>
+
+  // in the partial
+  <h1>Static header.hbs text</h1>
+  ```
+
+  
