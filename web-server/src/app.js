@@ -12,6 +12,7 @@ const partialsPath = path.join(__dirname, '../templates/partials');
 // Setup handlebars engine and views location
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
+// setup partials
 hbs.registerPartials(partialsPath, function (err) {});
 
 // Setup static directory to serve
@@ -20,19 +21,23 @@ app.use(express.static(publicDirectoryPath));
 app.get('', (req, res) => {
   res.render('index', {
     title: 'Weather',
-    name: 'Curtis',
+    name: 'Curtis Warcup',
   });
 });
 
 app.get('/about', (req, res) => {
   res.render('about', {
     title: 'About',
+    title: 'About Me',
+    name: 'Curtis Warcup',
   });
 });
 
 app.get('/help', (req, res) => {
   res.render('help', {
+    helpText: 'This is some helpful info',
     title: 'Help',
+    name: 'Curtis Warcup',
   });
 });
 
