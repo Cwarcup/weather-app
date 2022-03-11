@@ -423,3 +423,109 @@ const transaction = (type, {label, stock }) => {
 
 transaction('order', product); // order red notebook 201 
 ```
+
+# HTTP request without a library
+
+We don't need the npm library `postman-request`. We can use the default methods that node.js provides. 
+
+nodejs [docs](https://nodejs.org/dist/latest-v16.x/docs/api/http.html#httprequesturl-options-callback).
+
+We use HTTP when making a request, and HTTPS when making request to a secure server. 
+
+```js
+const http = require('http');
+
+const url =
+  'http://api.weatherstack.com/current?access_key=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&query=0,0&units=m';
+
+const request = http.request(url, (response) => {
+  let data = '';
+
+  response.on('data', (chunk) => {
+    data = data + chunk.toString();
+  });
+
+  response.on('end', () => {
+    console.log(data);
+  });
+});
+
+request.end();
+
+
+```
+
+- `response.on()` is a function that allows us to register a handler.
+
+# Express
+
+Basic setup:
+```js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.get('/help', (req, res) => {
+  res.send('Help page');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+```
+
+run node server (app.js file is within src):
+```
+node src/app.js
+```
+
+# Serving up JSON and HTML
+Will still be using `res.send()` just change what's inside.
+
+Can send **HTML** directly:
+```js
+app.get('/weather', (req, res) => {
+  res.send(`<h1>Weather</h1>`);
+});
+```
+
+Can send **JSON** directly:
+```js
+app.get('/weather', (req, res) => {
+  res.send({
+    forecast: 'sunny as fuck',
+    location: {
+      lat: 123,
+      long: 234,
+    },
+  });
+});
+```
+> Will be able to our json at http://localhost:3000/weather.
+
+# Serving static assets
+
+[express docs on static files.](https://expressjs.com/en/starter/static-files.html)
+
+Node.js [path.join](https://nodejs.org/api/path.html#pathjoinpaths).
+
+```
+(path.join(__dirname, '../public')
+```
+> Use `..` to move up the tree.
+
+To serve static files such as images, CSS files, and JavaScript files, use the `express.static` built-in middleware function in Express.
+
+The function signature is:
+```
+express.static(root, [options])
+```
+The **root argument** specifies the **root directory** from which to serve static assets. In our case, `__dirname`.
+
+For more information on the options argument, see [express.static.](https://expressjs.com/en/4x/api.html#express.static)
+
+So if we have an HTML file in the `public` directory, we can serve this page
