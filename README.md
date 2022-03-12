@@ -907,3 +907,31 @@ weatherForm.addEventListener('submit', (e) => {
 
 # User Interface
 
+```hbs
+<p id="success-message"></p>
+<p id="error-message"></p>
+```
+```js
+const successMessage = document.querySelector('#success-message');
+const errorMessage = document.querySelector('#error-message');
+
+successMessage.textContent = 'Success!';
+errorMessage.textContent = 'Fail!';
+```
+
+Add some css:
+```css
+input {
+  border: 1px solid #cccccc;
+  padding: 8px;
+
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #888888;
+  background: #888888;
+  color: white;
+  padding: 8px;
+}
+```
