@@ -785,4 +785,67 @@ Example app listening on port 3000
 { search: 'games', ratings: '5' }
 ```
 
-# Building JSON HTTP Endpoint
+# Fetch Function
+
+Can only run in client side javascript. This will be running in `app.js` within the js folder. NOT in our server app.js.
+
+mdn docs on fetch: [here](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+
+- Fetch() returns a **promise.**
+  - In the form of a **[response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object**
+    - Is the object being returned from an API request. Has the following [properties](https://developer.mozilla.org/en-US/docs/Web/API/Response#properties):
+- Simplest use take in **one argument**
+  - The **path to the resource you want to fetch.**
+  - 
+
+Basic fetch request
+```js
+fetch('http://example.com/movies.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+> Here we are fetching a JSON file across the network and printing it in console.
+
+Another example:
+```js
+const testURL = 'https://puzzle.mead.io/puzzle';
+
+fetch(testURL).then((response) => {
+  response.json().then((data) => {
+    console.log(data);
+  });
+});
+```
+
+### then() method
+[mdn docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)
+- returns a **promise**.
+- Takes two arguments
+  - callback functions for **success** and **failure** cases of the promise.
+
+### Response.json()
+Returns a promise that resolves with the result of parsing the response body text as JSON.
+```js
+fetch(weatherURl).then((response) => {
+  response.json().then((data) => {
+    if (data.error) {
+      console.log(data.error);
+    } else {
+      console.log(data);
+      console.log(data.location);
+      console.log(data.forecast);
+    }
+  });
+});
+
+console.log(data);
+// {forecast: 'The temperature in Vancouver is 3 degrees C, but f…t appears to be Sunny and has a humidity of 92 %.', location: 'Vancouver, British Columbia, Canada', address: 'Vancouver'}
+
+console.log(data.location);
+///address: "Vancouver"
+forecast: "The temperature in Vancouver is 3 degrees C, but feels like 1 degrees. It appears to be Sunny and has a humidity of 92 %."
+
+console.log(data.forecast);
+///location: "Vancouver, British Columbia, Canada"
+```
+
