@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const hbs = require('hbs');
+const geocode = require('./src/utils/geocode');
+const forecast = require('./src/utils/forecast');
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '/public');
@@ -43,17 +45,31 @@ app.get('/help', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-  if (!req.query.search) {
+  if (!req.query.address) {
     return res.send({
       error: 'please provide an address!',
     });
-  }
+  } else {
+    geocode(
+      req.query.address,
+      (error, { longitude, latitude, location } = {}) => {
+        if (error) {
+          return res.send(error);
+        }
 
-  res.send({
-    forecast: 'sunny as fuck',
-    location: 'Vancouver',
-    address: req.query.search,
-  });
+        forecast(latitude, longitude, (error, forecastData) => {
+          if (error) {
+            return res.send(error);
+          }
+          res.send({
+            forecast: forecastData,
+            location: location,
+            address: req.query.address,
+          });
+        });
+      }
+    );
+  }
 });
 
 // learning
