@@ -785,3 +785,4 @@ Example app listening on port 3000
 { search: 'games', ratings: '5' }
 ```
 
+# Building JSON HTTP Endpoint

@@ -5,9 +5,9 @@ const port = 3000;
 const hbs = require('hbs');
 
 // Define paths for Express config
-const publicDirectoryPath = path.join(__dirname, '../public');
-const viewsPath = path.join(__dirname, '../templates/views');
-const partialsPath = path.join(__dirname, '../templates/partials');
+const publicDirectoryPath = path.join(__dirname, '/public');
+const viewsPath = path.join(__dirname, '/templates/views');
+const partialsPath = path.join(__dirname, '/templates/partials');
 
 // Setup handlebars engine and views location
 app.set('view engine', 'hbs');
