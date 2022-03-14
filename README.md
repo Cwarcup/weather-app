@@ -18,7 +18,7 @@ Basic Request
 const request = require('postman-request');
 
 const url =
-  'http://api.weatherstack.com/current?access_key=320d76a9035985b875dca26811572be4&query=49.1665025,-123.1924007';
+  'http://api.weatherstack.com/current?access_key=weatherstackApiKey4&query=49.1665025,-123.1924007';
 
 request(url, (error, response) => {
   const data = JSON.parse(response.body);
@@ -30,7 +30,7 @@ Adding the **json** option in the `request` allows us to convert the json data i
 
 ```js
 const geocodeURL =
-  'https://api.mapbox.com/geocoding/v5/mapbox.places/Vancouver.json?access_token=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&limit=1';
+  'https://api.mapbox.com/geocoding/v5/mapbox.places/Vancouver.json?access_token=pmapboxApiKey&limit=1';
 
 request({ url: geocodeURL, json: true }, (error, response) => {
   const latitude = response.body.features[0].center[1];
@@ -49,7 +49,7 @@ Will be using [mapbox](https://docs.mapbox.com/api/search/geocoding/).
 
 ```ts
 const geocodingUrl =
-  'https://api.mapbox.com/geocoding/v5/mapbox.places/Vancouver.json?access_token=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&limit=1';
+  'https://api.mapbox.com/geocoding/v5/mapbox.places/Vancouver.json?access_token=pmapboxApiKey&limit=1';
 
 request({ url: geocodingUrl, json: true }, (error, response) => {
   const data = response.body;
@@ -69,7 +69,7 @@ What if you do not have internet (network request)? Need to add conditional logi
 const request = require('postman-request');
 
 const url =
-  'http://api.weatherstack.com/current?access_key=320d76a9035985b875dca26811572be4&query=49.1665025,-123.1924007&units=m';
+  'http://api.weatherstack.com/current?access_key=weatherstackApiKey4&query=49.1665025,-123.1924007&units=m';
 
 request({ url: url, json: true }, (error, response) => {
   const data = response.body;
@@ -97,7 +97,7 @@ Steps for handling errors:
 ```js
 const geocodeLocation = 'Vancouver';
 
-const geocodeURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${geocodeLocation}.json?access_token=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&limit=1`;
+const geocodeURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${geocodeLocation}.json?access_token=pmapboxApiKey&limit=1`;
 
 request({ url: geocodeURL, json: true }, (error, response) => {
   if (error) {
@@ -175,7 +175,7 @@ const geocode = (address, callback) => {
   const url =
     'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
     encodeURIComponent(address) +
-    '.json?access_token=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&limit=1';
+    '.json?access_token=pmapboxApiKey&limit=1';
 
   request({ url: url, json: true }, (error, response) => {
     if (error) {
@@ -204,7 +204,7 @@ Can do the same for `forecast`:
 const request = require('postman-request');
 
 const forecast = (latitude, longitude, callback) => {
-  const access_key = '320d76a9035985b875dca26811572be4';
+  const access_key = 'weatherstackApiKey4';
 
   const url = `http://api.weatherstack.com/current?access_key=${access_key}&query=${latitude},${longitude}&units=m`;
 
@@ -438,7 +438,7 @@ We use HTTP when making a request, and HTTPS when making request to a secure ser
 const http = require('http');
 
 const url =
-  'http://api.weatherstack.com/current?access_key=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&query=0,0&units=m';
+  'http://api.weatherstack.com/current?access_key=pmapboxApiKey&query=0,0&units=m';
 
 const request = http.request(url, (response) => {
   let data = '';
