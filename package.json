@@ -4,12 +4,13 @@
   "description": "Course found [here](https://www.udemy.com/course/the-complete-nodejs-developer-course-2):",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js" 
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "hbs": "^4.2.0",
     "postman-request": "^2.88.1-postman.31"

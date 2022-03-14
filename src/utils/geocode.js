@@ -1,11 +1,17 @@
+require('dotenv').config();
+console.log(process.env);
 const request = require('postman-request');
+
+const geocodeKey = process.env.GEOCODE_KEY;
 
 // use geocode to query a city name and return the latitude and longitude.
 const geocode = (address, callback) => {
   const url =
     'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
     encodeURIComponent(address) +
-    '.json?access_token=pk.eyJ1IjoiY3VydGlzd2FyY3VwIiwiYSI6ImNsMGp5b3c1MDBoYzIzcGtjMG0ydHgwZXYifQ.UUL9qMMMqC7XezgJIGqdNg&limit=1';
+    '.json?access_token=' +
+    geocodeKey +
+    '&limit=1';
 
   request({ url, json: true }, (error, { body }) => {
     if (error) {
