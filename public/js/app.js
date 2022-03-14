@@ -3,8 +3,9 @@
 
 const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
-const topPara = document.querySelector('#success-message');
-const bottomPara = document.querySelector('#error-message');
+const topPara = document.querySelector('#top-para');
+const bottomPara = document.querySelector('#bottom-para');
+const weatherIcon = document.querySelector('#weather-icon');
 
 // topPara.textContent = 'Success!';
 // bottomPara.textContent = 'Fail!';
@@ -25,7 +26,8 @@ weatherForm.addEventListener('submit', (e) => {
         bottomPara.innerHTML = '';
       } else {
         topPara.innerHTML = data.location;
-        bottomPara.innerHTML = data.forecast;
+        bottomPara.innerHTML = data.forecast.sentence;
+        weatherIcon.src = data.forecast.icon;
       }
     });
   });

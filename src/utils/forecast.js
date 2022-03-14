@@ -22,10 +22,12 @@ const forecast = (latitude, longitude, callback) => {
         humidity: body.current.humidity,
       };
 
-      callback(
-        undefined,
-        `The temperature in ${data.locName} is ${data.temp} degrees C, but feels like ${data.feelsLike} degrees. It appears to be ${data.weatherDescription} and has a humidity of ${data.humidity} %.`
-      );
+      const sentence = `The temperature in ${data.locName} is ${data.temp} degrees C, but feels like ${data.feelsLike} degrees. It appears to be ${data.weatherDescription} and has a humidity of ${data.humidity} %.`;
+
+      callback(undefined, {
+        sentence: sentence,
+        icon: body.current.weather_icons,
+      });
     }
   });
 };
