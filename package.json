@@ -4,7 +4,7 @@
   "description": "Course found [here](https://www.udemy.com/course/the-complete-nodejs-developer-course-2):",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js" 
   },
   "keywords": [],
   "author": "",
