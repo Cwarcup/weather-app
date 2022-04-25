@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
+
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,8 @@
     "postman-request": "^2.88.1-postman.31"
   },
   "devDependencies": {
-    "@types/hbs": "^4.0.1"
-  }
+    "@types/hbs": "^4.0.1",
+    "gh-pages": "^3.2.3"
+  },
+  "homepage": "http://cwarcup.github.io/weather-app"
 }
